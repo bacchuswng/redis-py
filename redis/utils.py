@@ -1,6 +1,6 @@
 import logging
 from contextlib import contextmanager
-from functools import wraps
+from functools import cache, wraps
 from typing import Any, Dict, Mapping, Union
 
 try:
@@ -192,3 +192,8 @@ def ensure_string(key):
         return key
     else:
         raise TypeError("Key must be either a string or bytes")
+
+
+@cache
+def ssl_default_context() -> ssl.SSLContext:
+    return ssl.create_default_context()
