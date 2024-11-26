@@ -27,7 +27,7 @@ from typing import (
 )
 from urllib.parse import ParseResult, parse_qs, unquote, urlparse
 
-from ..utils import format_error_message
+from ..utils import format_error_message, ssl_default_context
 
 # the functionality is available in 3.11.x but has a major issue before
 # 3.11.3. See https://github.com/redis/redis-py/issues/2633
@@ -834,7 +834,7 @@ class RedisSSLContext:
 
     def get(self) -> ssl.SSLContext:
         if not self.context:
-            context = ssl.create_default_context()
+            context = ssl_default_context()
             context.check_hostname = self.check_hostname
             context.verify_mode = self.cert_reqs
             if self.certfile and self.keyfile:

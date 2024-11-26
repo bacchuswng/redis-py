@@ -44,6 +44,7 @@ from .utils import (
     format_error_message,
     get_lib_version,
     str_if_bytes,
+    ssl_default_context,
 )
 
 if HIREDIS_AVAILABLE:
@@ -1033,7 +1034,7 @@ class SSLConnection(Connection):
         Returns:
             An SSL wrapped socket.
         """
-        context = ssl.create_default_context()
+        context = ssl_default_context()
         context.check_hostname = self.check_hostname
         context.verify_mode = self.cert_reqs
         if self.certfile or self.keyfile:
